@@ -118,7 +118,6 @@
     white-space: nowrap;
   }
 
-  /* Clay subheading, as specified. */
   .eyebrow {
     margin: clamp(22px, 3.5vw, 34px) 0 0;
     color: var(--clay);
@@ -173,6 +172,15 @@
   .notify button:focus-visible {
     color: var(--clay);
     border-color: var(--bone);
+  }
+
+  .form-status {
+    min-height: 1.15em;
+    margin: 12px 0 0;
+    color: var(--concrete);
+    font-size: .72rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
   }
 
   .corner-mark {
@@ -284,34 +292,62 @@
 
       <p class="eyebrow">Culture <span class="slash">/</span> Lifestyle <span class="slash">/</span> Community</p>
 
-      <form class="notify" id="notifyForm">
-        <input type="email" name="email" placeholder="Your email" required aria-label="Your email">
+      <form class="notify" id="notifyForm" action="https://formspree.io/f/xgaengez" method="POST">
+        <input type="email" name="email" placeholder="Your email" required autocomplete="email" aria-label="Your email">
+        <input type="hidden" name="_subject" value="New DIENASTIE landing-page signup">
         <button type="submit">Get in</button>
       </form>
+      <p class="form-status" id="formStatus" aria-live="polite"></p>
     </div>
 
     <div class="marquee" aria-hidden="true">
       <div class="marquee-track">
         <div class="marquee-group">
-          <span class="marquee-item">CULTURE <span class="slash">/</span> LIFESTYLE <span class="slash">/</span> COMMUNITY <span class="slash">/</span></span>
-          <span class="marquee-item">CULTURE <span class="slash">/</span> LIFESTYLE <span class="slash">/</span> COMMUNITY <span class="slash">/</span></span>
-          <span class="marquee-item">CULTURE <span class="slash">/</span> LIFESTYLE <span class="slash">/</span> COMMUNITY <span class="slash">/</span></span>
-          <span class="marquee-item">CULTURE <span class="slash">/</span> LIFESTYLE <span class="slash">/</span> COMMUNITY <span class="slash">/</span></span>
+          <span class="marquee-item">CULTURE <span class="slash">/</span>&nbsp;&nbsp;LIFESTYLE <span class="slash">/</span>&nbsp;&nbsp;COMMUNITY <span class="slash">/</span>&nbsp;&nbsp;</span>
+          <span class="marquee-item">CULTURE <span class="slash">/</span>&nbsp;&nbsp;LIFESTYLE <span class="slash">/</span>&nbsp;&nbsp;COMMUNITY <span class="slash">/</span>&nbsp;&nbsp;</span>
+          <span class="marquee-item">CULTURE <span class="slash">/</span>&nbsp;&nbsp;LIFESTYLE <span class="slash">/</span>&nbsp;&nbsp;COMMUNITY <span class="slash">/</span>&nbsp;&nbsp;</span>
+          <span class="marquee-item">CULTURE <span class="slash">/</span>&nbsp;&nbsp;LIFESTYLE <span class="slash">/</span>&nbsp;&nbsp;COMMUNITY <span class="slash">/</span>&nbsp;&nbsp;</span>
         </div>
         <div class="marquee-group" aria-hidden="true">
-          <span class="marquee-item">CULTURE <span class="slash">/</span> LIFESTYLE <span class="slash">/</span> COMMUNITY <span class="slash">/</span></span>
-          <span class="marquee-item">CULTURE <span class="slash">/</span> LIFESTYLE <span class="slash">/</span> COMMUNITY <span class="slash">/</span></span>
-          <span class="marquee-item">CULTURE <span class="slash">/</span> LIFESTYLE <span class="slash">/</span> COMMUNITY <span class="slash">/</span></span>
-          <span class="marquee-item">CULTURE <span class="slash">/</span> LIFESTYLE <span class="slash">/</span> COMMUNITY <span class="slash">/</span></span>
+          <span class="marquee-item">CULTURE <span class="slash">/</span>&nbsp;&nbsp;LIFESTYLE <span class="slash">/</span>&nbsp;&nbsp;COMMUNITY <span class="slash">/</span>&nbsp;&nbsp;</span>
+          <span class="marquee-item">CULTURE <span class="slash">/</span>&nbsp;&nbsp;LIFESTYLE <span class="slash">/</span>&nbsp;&nbsp;COMMUNITY <span class="slash">/</span>&nbsp;&nbsp;</span>
+          <span class="marquee-item">CULTURE <span class="slash">/</span>&nbsp;&nbsp;LIFESTYLE <span class="slash">/</span>&nbsp;&nbsp;COMMUNITY <span class="slash">/</span>&nbsp;&nbsp;</span>
+          <span class="marquee-item">CULTURE <span class="slash">/</span>&nbsp;&nbsp;LIFESTYLE <span class="slash">/</span>&nbsp;&nbsp;COMMUNITY <span class="slash">/</span>&nbsp;&nbsp;</span>
         </div>
       </div>
     </div>
   </main>
 
   <script>
-    document.getElementById('notifyForm').addEventListener('submit', function (event) {
+    const form = document.getElementById('notifyForm');
+    const status = document.getElementById('formStatus');
+
+    form.addEventListener('submit', async (event) => {
       event.preventDefault();
-      event.currentTarget.innerHTML = '<span style="color:#E9E8E5;font-size:.9rem;letter-spacing:.08em;text-transform:uppercase;">You are in.</span>';
+      const button = form.querySelector('button');
+      button.disabled = true;
+      button.textContent = 'Sending';
+      status.textContent = '';
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' }
+        });
+
+        if (response.ok) {
+          form.reset();
+          status.textContent = 'You are in.';
+          button.textContent = 'Sent';
+        } else {
+          throw new Error('Submission failed');
+        }
+      } catch (error) {
+        status.textContent = 'Something went wrong. Try again.';
+        button.disabled = false;
+        button.textContent = 'Get in';
+      }
     });
   </script>
 </body>
