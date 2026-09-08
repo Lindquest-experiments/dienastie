@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DIENASTIE — Culture / Lifestyle / Community</title>
+<meta name="description" content="DIENASTIE — Culture / Lifestyle / Community">
+<meta name="theme-color" content="#0E0B0A">
+<link rel="preconnect" href="https://res.cloudinary.com">
+<link rel="preconnect" href="https://i.postimg.cc">
+<style>
+  :root {
+    --ink: #0E0B0A;
+    --bone: #E9E8E5;
+    --concrete: #C8C6C2;
+    --char: #35322F;
+    --kraft: #A98A68;
+    --clay: #C26E29;
+    --clay-deep: #A25D2F;
+    --font: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --ease: cubic-bezier(.16,.84,.24,1);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; }
+
+  body {
+    background: var(--ink);
+    color: var(--bone);
+    font-family: var(--font);
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .landing {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    min-height: 100svh;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: clamp(24px, 5vw, 72px);
+  }
+
+  .hero-image {
+    position: absolute;
+    z-index: -4;
+    inset: 0;
+    background-color: var(--ink);
+    background-image: url("https://i.postimg.cc/R0Pf51DZ/B56A8755.webp");
+    background-position: center;
+    background-size: cover;
+    filter: grayscale(1) contrast(1.14);
+    transform: scale(1.025);
+  }
+
+  .hero-overlay {
+    position: absolute;
+    z-index: -3;
+    inset: 0;
+    background: rgba(14, 11, 10, .64);
+  }
+
+  .background-logo {
+    position: absolute;
+    z-index: -2;
+    top: 50%;
+    left: 50%;
+    width: min(92vw, 1180px);
+    height: auto;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: multiply;
+    opacity: .40;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .noise {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    pointer-events: none;
+    opacity: .095;
+    mix-blend-mode: screen;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(233,232,229,.08) 0 1px, transparent 1px 2px),
+      repeating-linear-gradient(90deg, rgba(233,232,229,.05) 0 1px, transparent 1px 3px);
+    animation: noise-shift 1.2s steps(6) infinite;
+  }
+
+  @keyframes noise-shift {
+    0% { background-position: 0 0, 0 0; }
+    100% { background-position: 53px 29px, -31px 17px; }
+  }
+
+  .content {
+    position: relative;
+    z-index: 1;
+    width: min(1100px, 100%);
+    text-align: center;
+  }
+
+  .headline {
+    display: inline-block;
+    margin: 0;
+    color: var(--bone);
+    font-size: clamp(2.25rem, 7.8vw, 8.2rem);
+    font-weight: 800;
+    line-height: .9;
+    letter-spacing: -.065em;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .headline-line {
+    display: block;
+    white-space: nowrap;
+  }
+
+  /* Clay subheading, as specified. */
+  .eyebrow {
+    margin: clamp(22px, 3.5vw, 34px) 0 0;
+    color: var(--clay);
+    font-size: clamp(.72rem, 1vw, .9rem);
+    font-weight: 600;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+  }
+
+  .notify {
+    display: flex;
+    width: min(430px, 100%);
+    margin: clamp(30px, 4vw, 42px) auto 0;
+    gap: 12px;
+    align-items: center;
+    border-bottom: 1px solid var(--concrete);
+    padding: 0 0 12px;
+  }
+
+  .notify input {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: var(--bone);
+    font: inherit;
+    font-size: clamp(.9rem, 1.2vw, 1.05rem);
+    padding: 8px 0;
+  }
+
+  .notify input::placeholder { color: var(--concrete); opacity: .9; }
+
+  .notify button {
+    flex: 0 0 auto;
+    appearance: none;
+    border: 0;
+    border-bottom: 1px solid var(--clay);
+    padding: 0 0 3px;
+    background: transparent;
+    color: var(--bone);
+    cursor: pointer;
+    font: inherit;
+    font-size: clamp(.72rem, .9vw, .85rem);
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    transition: color .2s var(--ease), border-color .2s var(--ease);
+  }
+
+  .notify button:hover,
+  .notify button:focus-visible {
+    color: var(--clay);
+    border-color: var(--bone);
+  }
+
+  .corner-mark {
+    position: absolute;
+    z-index: 2;
+    top: clamp(20px, 3vw, 42px);
+    left: clamp(20px, 3vw, 42px);
+    margin: 0;
+    color: var(--bone);
+    font-size: clamp(.65rem, .8vw, .78rem);
+    font-weight: 600;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+  }
+
+  .established {
+    position: absolute;
+    z-index: 2;
+    top: clamp(20px, 3vw, 42px);
+    right: clamp(20px, 3vw, 42px);
+    margin: 0;
+    color: var(--bone);
+    font-size: clamp(.65rem, .8vw, .78rem);
+    font-weight: 600;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+  }
+
+  .marquee {
+    position: absolute;
+    z-index: 2;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    border-top: 1px solid rgba(200,198,194,.48);
+    background: rgba(14,11,10,.42);
+    padding: 14px 0 13px;
+    white-space: nowrap;
+  }
+
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    will-change: transform;
+    animation: marquee 18s linear infinite;
+  }
+
+  .marquee-group {
+    display: flex;
+    flex: 0 0 auto;
+  }
+
+  .marquee-item {
+    display: block;
+    color: var(--bone);
+    font-size: clamp(.78rem, 1.3vw, 1.1rem);
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    padding-right: .14em;
+  }
+
+  .slash { color: var(--clay); }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  @media (max-width: 620px) {
+    .headline { font-size: clamp(1.85rem, 10.5vw, 4.1rem); }
+    .background-logo { width: 145vw; opacity: .32; }
+    .notify { width: min(350px, 100%); }
+  }
+
+  @media (max-width: 350px) {
+    .headline { font-size: 1.78rem; letter-spacing: -.06em; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .noise, .marquee-track { animation: none; }
+  }
+</style>
+</head>
+<body>
+  <main class="landing">
+    <div class="hero-image" aria-hidden="true"></div>
+    <div class="hero-overlay" aria-hidden="true"></div>
+
+    <img
+      class="background-logo"
+      src="https://res.cloudinary.com/x3vpljyu/image/upload/f_auto,q_auto/hf_20260904_114838_fccd5902-5c93-4173-b1f1-d2650ba4a1e5_1"
+      alt=""
+      aria-hidden="true"
+    >
+
+    <div class="noise" aria-hidden="true"></div>
+
+    <p class="corner-mark">DIENASTIE</p>
+    <p class="established">Est. 2011</p>
+
+    <div class="content">
+      <h1 class="headline">
+        <span class="headline-line">Most people wait</span>
+        <span class="headline-line">for permission.</span>
+        <span class="headline-line">We never did.</span>
+      </h1>
+
+      <p class="eyebrow">Culture <span class="slash">/</span> Lifestyle <span class="slash">/</span> Community</p>
+
+      <form class="notify" id="notifyForm">
+        <input type="email" name="email" placeholder="Your email" required aria-label="Your email">
+        <button type="submit">Get in</button>
+      </form>
+    </div>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <div class="marquee-group">
+          <span class="marquee-item">CULTURE <span class="slash">/</span> LIFESTYLE <span class="slash">/</span> COMMUNITY <span class="slash">/</span></span>
+          <span class="marquee-item">CULTURE <span class="slash">/</span> LIFESTYLE <span class="slash">/</span> COMMUNITY <span class="slash">/</span></span>
+          <span class="marquee-item">CULTURE <span class="slash">/</span> LIFESTYLE <span class="slash">/</span> COMMUNITY <span class="slash">/</span></span>
+          <span class="marquee-item">CULTURE <span class="slash">/</span> LIFESTYLE <span class="slash">/</span> COMMUNITY <span class="slash">/</span></span>
+        </div>
+        <div class="marquee-group" aria-hidden="true">
+          <span class="marquee-item">CULTURE <span class="slash">/</span> LIFESTYLE <span class="slash">/</span> COMMUNITY <span class="slash">/</span></span>
+          <span class="marquee-item">CULTURE <span class="slash">/</span> LIFESTYLE <span class="slash">/</span> COMMUNITY <span class="slash">/</span></span>
+          <span class="marquee-item">CULTURE <span class="slash">/</span> LIFESTYLE <span class="slash">/</span> COMMUNITY <span class="slash">/</span></span>
+          <span class="marquee-item">CULTURE <span class="slash">/</span> LIFESTYLE <span class="slash">/</span> COMMUNITY <span class="slash">/</span></span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    document.getElementById('notifyForm').addEventListener('submit', function (event) {
+      event.preventDefault();
+      event.currentTarget.innerHTML = '<span style="color:#E9E8E5;font-size:.9rem;letter-spacing:.08em;text-transform:uppercase;">You are in.</span>';
+    });
+  </script>
+</body>
+</html>
