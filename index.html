@@ -6,8 +6,21 @@
 <title>DIENASTIE — Culture / Lifestyle / Community</title>
 <meta name="description" content="DIENASTIE — Culture / Lifestyle / Community">
 <meta name="theme-color" content="#0E0B0A">
+
+<!-- Favicon: place the attached favicon-6 file in the repo root as favicon.png -->
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="favicon.png">
+
 <link rel="preconnect" href="https://res.cloudinary.com">
 <link rel="preconnect" href="https://i.postimg.cc">
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+
+<!-- Fontshare: Clash Display (headline) + Satoshi (everything else) -->
+<link
+  rel="stylesheet"
+  href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&f[]=satoshi@400,500,700&display=swap"
+>
+
 <style>
   :root {
     --ink: #0E0B0A;
@@ -17,7 +30,8 @@
     --kraft: #A98A68;
     --clay: #C26E29;
     --clay-deep: #A25D2F;
-    --font: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --font-display: "Clash Display", Helvetica, Arial, sans-serif;
+    --font-body: "Satoshi", Helvetica, Arial, sans-serif;
     --ease: cubic-bezier(.16,.84,.24,1);
   }
 
@@ -27,7 +41,7 @@
   body {
     background: var(--ink);
     color: var(--bone);
-    font-family: var(--font);
+    font-family: var(--font-body);
     overflow: hidden;
     -webkit-font-smoothing: antialiased;
   }
@@ -105,10 +119,11 @@
     display: inline-block;
     margin: 0;
     color: var(--bone);
+    font-family: var(--font-display);
     font-size: clamp(2.25rem, 7.8vw, 8.2rem);
-    font-weight: 800;
+    font-weight: 600;
     line-height: .9;
-    letter-spacing: -.065em;
+    letter-spacing: -.03em;
     text-align: center;
     text-transform: uppercase;
   }
@@ -118,9 +133,22 @@
     white-space: nowrap;
   }
 
+  /*
+    Final line: italic only, same weight (600) as the rest of the headline.
+    No weight increase — a heavier italic reads as athletic/sporty branding,
+    which is the effect being avoided. Color remains Clay for emphasis.
+  */
+  .headline-line--emphasis {
+    font-style: italic;
+    font-weight: 600;
+    color: var(--clay);
+    letter-spacing: -.02em;
+  }
+
   .eyebrow {
     margin: clamp(22px, 3.5vw, 34px) 0 0;
-    color: var(--clay);
+    color: var(--bone);
+    font-family: var(--font-body);
     font-size: clamp(.72rem, 1vw, .9rem);
     font-weight: 600;
     letter-spacing: .16em;
@@ -144,7 +172,7 @@
     outline: 0;
     background: transparent;
     color: var(--bone);
-    font: inherit;
+    font-family: var(--font-body);
     font-size: clamp(.9rem, 1.2vw, 1.05rem);
     padding: 8px 0;
   }
@@ -160,7 +188,7 @@
     background: transparent;
     color: var(--bone);
     cursor: pointer;
-    font: inherit;
+    font-family: var(--font-body);
     font-size: clamp(.72rem, .9vw, .85rem);
     font-weight: 700;
     letter-spacing: .12em;
@@ -178,6 +206,7 @@
     min-height: 1.15em;
     margin: 12px 0 0;
     color: var(--concrete);
+    font-family: var(--font-body);
     font-size: .72rem;
     letter-spacing: .08em;
     text-transform: uppercase;
@@ -190,6 +219,7 @@
     left: clamp(20px, 3vw, 42px);
     margin: 0;
     color: var(--bone);
+    font-family: var(--font-body);
     font-size: clamp(.65rem, .8vw, .78rem);
     font-weight: 600;
     letter-spacing: .18em;
@@ -203,6 +233,7 @@
     right: clamp(20px, 3vw, 42px);
     margin: 0;
     color: var(--bone);
+    font-family: var(--font-body);
     font-size: clamp(.65rem, .8vw, .78rem);
     font-weight: 600;
     letter-spacing: .18em;
@@ -237,6 +268,7 @@
   .marquee-item {
     display: block;
     color: var(--bone);
+    font-family: var(--font-body);
     font-size: clamp(.78rem, 1.3vw, 1.1rem);
     font-weight: 700;
     letter-spacing: .14em;
@@ -258,7 +290,7 @@
   }
 
   @media (max-width: 350px) {
-    .headline { font-size: 1.78rem; letter-spacing: -.06em; }
+    .headline { font-size: 1.78rem; letter-spacing: -.02em; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -287,7 +319,7 @@
       <h1 class="headline">
         <span class="headline-line">Most people wait</span>
         <span class="headline-line">for permission.</span>
-        <span class="headline-line">We never did.</span>
+        <span class="headline-line headline-line--emphasis">We never did.</span>
       </h1>
 
       <p class="eyebrow">Culture <span class="slash">/</span> Lifestyle <span class="slash">/</span> Community</p>
