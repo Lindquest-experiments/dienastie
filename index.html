@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DIENASTIE — Don't Wait, Just Go!</title>
-<meta name="description" content="DIENASTIE — Don't Wait, Just Go!">
+<meta name="description" content="DIENASTIE — Culture / Lifestyle / Community">
 <meta name="theme-color" content="#0E0B0A">
 
 <link rel="icon" type="image/png" href="favicon.png">
@@ -110,11 +110,13 @@
     position: relative;
     z-index: 1;
     width: min(1100px, 100%);
+    padding: 0 clamp(8px, 2vw, 16px);
     text-align: center;
   }
 
   .headline {
     display: inline-block;
+    max-width: 100%;
     margin: 0;
     color: var(--bone);
     font-family: var(--font-display);
@@ -128,6 +130,7 @@
 
   .headline-line {
     display: block;
+    max-width: 100%;
     white-space: nowrap;
   }
 
@@ -140,7 +143,7 @@
 
   .eyebrow {
     margin: clamp(22px, 3.5vw, 34px) 0 0;
-    color: var(--bone);
+    color: var(--clay);
     font-family: var(--font-body);
     font-size: clamp(.72rem, 1vw, .9rem);
     font-weight: 600;
@@ -233,57 +236,134 @@
     text-transform: uppercase;
   }
 
+  /*
+    Logo marquee — single continuous row, lifted off the browser edge.
+    Bar background is --ink at 70% alpha (not CSS opacity) so the hero
+    image behind shows through, while logos/borders inside stay fully
+    solid. Every logo shares identical padding/sizing rules so removing
+    or adding an item keeps spacing even automatically.
+  */
   .marquee {
-    position: absolute;
+    position: fixed;
     z-index: 2;
-    bottom: 0;
+    bottom: 20px;
     left: 0;
     width: 100%;
     overflow: hidden;
-    border-top: 1px solid rgba(200,198,194,.48);
-    background: rgba(14,11,10,.42);
-    padding: 14px 0 13px;
+    border-top: 1px solid rgba(200,198,194,.32);
+    border-bottom: 1px solid rgba(200,198,194,.32);
+    background: rgba(14, 11, 10, .70);
+    padding: 10px 0;
     white-space: nowrap;
   }
 
   .marquee-track {
     display: flex;
     width: max-content;
+    align-items: center;
     will-change: transform;
-    animation: marquee 18s linear infinite;
+    animation: marquee 30s linear infinite;
   }
 
   .marquee-group {
     display: flex;
     flex: 0 0 auto;
+    align-items: center;
   }
 
-  .marquee-item {
-    display: block;
-    color: var(--bone);
-    font-family: var(--font-body);
-    font-size: clamp(.78rem, 1.3vw, 1.1rem);
-    font-weight: 700;
-    letter-spacing: .14em;
-    text-transform: uppercase;
-    padding-right: .14em;
+  .logo-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 clamp(18px, 3vw, 36px);
+    height: 40px;
   }
 
-  .slash { color: var(--clay); }
+  .logo-item img {
+    max-height: 68%;
+    max-width: clamp(60px, 6.5vw, 96px);
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    filter: grayscale(1) brightness(0) invert(1);
+    opacity: 1;
+  }
+
+  .logo-item--sas img {
+    max-height: 54.4%;
+    max-width: clamp(48px, 5.2vw, 76.8px);
+  }
 
   @keyframes marquee {
     from { transform: translateX(0); }
     to { transform: translateX(-50%); }
   }
 
+  /*
+    Social icons — separate from the partner marquee. Small and quiet,
+    sitting 20px above the marquee bar's top edge.
+  */
+  .social-icons {
+    position: fixed;
+    z-index: 3;
+    right: clamp(16px, 3vw, 32px);
+    bottom: calc(20px + 10px + 40px + 10px + 20px);
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .social-icons a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    color: var(--bone);
+    opacity: .38;
+    transition: opacity .25s var(--ease), color .25s var(--ease);
+  }
+
+  .social-icons a:hover,
+  .social-icons a:focus-visible {
+    opacity: .85;
+    color: var(--clay);
+  }
+
+  .social-icons svg {
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
+  }
+
+  /*
+    Mobile fix: the headline used a fluid vw-based font-size with nowrap
+    lines. On narrow phones the longest line ("for permission.") could
+    render wider than the viewport even with vw scaling, because vw math
+    doesn't account for exact character width, and uppercase transform +
+    tight letter-spacing add extra rendered width on top. overflow:hidden
+    on body/.landing meant the excess was silently clipped at the frame
+    edge instead of wrapping or shrinking further.
+
+    Fix: cap the mobile font-size lower (so the longest line reliably
+    fits within the viewport minus padding), allow wrapping as a safety
+    net if a line is still too long for any reason, and keep real
+    horizontal padding via .content so text never touches the edge.
+  */
   @media (max-width: 620px) {
-    .headline { font-size: clamp(1.85rem, 10.5vw, 4.1rem); }
+    .content { padding: 0 20px; }
+    .headline { font-size: clamp(1.7rem, 8.6vw, 3.4rem); letter-spacing: -.02em; }
+    .headline-line { white-space: normal; }
     .background-logo { width: 145vw; opacity: .32; }
     .notify { width: min(350px, 100%); }
+    .logo-item { padding: 0 clamp(12px, 4vw, 22px); height: 32px; }
+    .logo-item img { max-width: clamp(46px, 13vw, 72px); }
+    .logo-item--sas img { max-width: clamp(36.8px, 10.4vw, 57.6px); }
+    .social-icons { bottom: calc(20px + 10px + 32px + 10px + 20px); }
   }
 
   @media (max-width: 350px) {
-    .headline { font-size: 1.78rem; letter-spacing: -.02em; }
+    .headline { font-size: clamp(1.5rem, 8.2vw, 2.4rem); letter-spacing: -.01em; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -315,7 +395,7 @@
         <span class="headline-line headline-line--emphasis">We never did.</span>
       </h1>
 
-      <p class="eyebrow">Don&rsquo;t Wait &mdash; Just Go!</p>
+      <p class="eyebrow">Culture <span style="color: var(--bone);">/</span> Lifestyle <span style="color: var(--bone);">/</span> Community</p>
 
       <form class="notify" id="notifyForm" action="https://formspree.io/f/xgaengez" method="POST">
         <input type="email" name="email" placeholder="Your email" required autocomplete="email" aria-label="Your email">
@@ -325,22 +405,45 @@
       <p class="form-status" id="formStatus" aria-live="polite"></p>
     </div>
 
-    <div class="marquee" aria-hidden="true">
+    <div class="marquee" aria-label="Selected partners and collaborators">
       <div class="marquee-track">
         <div class="marquee-group">
-          <span class="marquee-item">CULTURE <span class="slash">/</span>&nbsp;&nbsp;LIFESTYLE <span class="slash">/</span>&nbsp;&nbsp;COMMUNITY <span class="slash">/</span>&nbsp;&nbsp;</span>
-          <span class="marquee-item">CULTURE <span class="slash">/</span>&nbsp;&nbsp;LIFESTYLE <span class="slash">/</span>&nbsp;&nbsp;COMMUNITY <span class="slash">/</span>&nbsp;&nbsp;</span>
-          <span class="marquee-item">CULTURE <span class="slash">/</span>&nbsp;&nbsp;LIFESTYLE <span class="slash">/</span>&nbsp;&nbsp;COMMUNITY <span class="slash">/</span>&nbsp;&nbsp;</span>
-          <span class="marquee-item">CULTURE <span class="slash">/</span>&nbsp;&nbsp;LIFESTYLE <span class="slash">/</span>&nbsp;&nbsp;COMMUNITY <span class="slash">/</span>&nbsp;&nbsp;</span>
+          <span class="logo-item logo-item--sas"><img src="https://res.cloudinary.com/x3vpljyu/image/upload/v1789313356/sas-logo.webp" alt="Scandinavian Airlines" loading="lazy"></span>
+          <span class="logo-item"><img src="https://res.cloudinary.com/x3vpljyu/image/upload/v1789313361/volkswagen-logo.webp" alt="Volkswagen" loading="lazy"></span>
+          <span class="logo-item"><img src="https://res.cloudinary.com/x3vpljyu/image/upload/v1789314043/mercedes-benz-amg-white-logo-hd-png-701751694713916bzbqqvib0s-removebg-preview.webp" alt="AMG Mercedes-Benz" loading="lazy"></span>
+          <span class="logo-item"><img src="https://res.cloudinary.com/x3vpljyu/image/upload/v1789313358/time-logo.webp" alt="TIME" loading="lazy"></span>
+          <span class="logo-item"><img src="https://res.cloudinary.com/x3vpljyu/image/upload/v1789314413/Genting-Logo.png" alt="Genting Cruises" loading="lazy"></span>
+          <span class="logo-item"><img src="https://res.cloudinary.com/x3vpljyu/image/upload/v1789313764/Havaianas.webp" alt="Havaianas" loading="lazy"></span>
+          <span class="logo-item"><img src="https://res.cloudinary.com/x3vpljyu/image/upload/v1789313352/pirelli-logo.webp" alt="Pirelli" loading="lazy"></span>
+          <span class="logo-item"><img src="https://res.cloudinary.com/x3vpljyu/image/upload/v1789313560/Formula_Masters_China_logo.webp" alt="Formula Masters China" loading="lazy"></span>
+          <span class="logo-item"><img src="https://res.cloudinary.com/x3vpljyu/image/upload/v1789307227/new-Red-Bull-logo-white-png-vertical-large-size.webp" alt="Red Bull" loading="lazy"></span>
         </div>
         <div class="marquee-group" aria-hidden="true">
-          <span class="marquee-item">CULTURE <span class="slash">/</span>&nbsp;&nbsp;LIFESTYLE <span class="slash">/</span>&nbsp;&nbsp;COMMUNITY <span class="slash">/</span>&nbsp;&nbsp;</span>
-          <span class="marquee-item">CULTURE <span class="slash">/</span>&nbsp;&nbsp;LIFESTYLE <span class="slash">/</span>&nbsp;&nbsp;COMMUNITY <span class="slash">/</span>&nbsp;&nbsp;</span>
-          <span class="marquee-item">CULTURE <span class="slash">/</span>&nbsp;&nbsp;LIFESTYLE <span class="slash">/</span>&nbsp;&nbsp;COMMUNITY <span class="slash">/</span>&nbsp;&nbsp;</span>
-          <span class="marquee-item">CULTURE <span class="slash">/</span>&nbsp;&nbsp;LIFESTYLE <span class="slash">/</span>&nbsp;&nbsp;COMMUNITY <span class="slash">/</span>&nbsp;&nbsp;</span>
+          <span class="logo-item logo-item--sas"><img src="https://res.cloudinary.com/x3vpljyu/image/upload/v1789313356/sas-logo.webp" alt="Scandinavian Airlines" loading="lazy"></span>
+          <span class="logo-item"><img src="https://res.cloudinary.com/x3vpljyu/image/upload/v1789313361/volkswagen-logo.webp" alt="Volkswagen" loading="lazy"></span>
+          <span class="logo-item"><img src="https://res.cloudinary.com/x3vpljyu/image/upload/v1789314043/mercedes-benz-amg-white-logo-hd-png-701751694713916bzbqqvib0s-removebg-preview.webp" alt="AMG Mercedes-Benz" loading="lazy"></span>
+          <span class="logo-item"><img src="https://res.cloudinary.com/x3vpljyu/image/upload/v1789313358/time-logo.webp" alt="TIME" loading="lazy"></span>
+          <span class="logo-item"><img src="https://res.cloudinary.com/x3vpljyu/image/upload/v1789314413/Genting-Logo.png" alt="Genting Cruises" loading="lazy"></span>
+          <span class="logo-item"><img src="https://res.cloudinary.com/x3vpljyu/image/upload/v1789313764/Havaianas.webp" alt="Havaianas" loading="lazy"></span>
+          <span class="logo-item"><img src="https://res.cloudinary.com/x3vpljyu/image/upload/v1789313352/pirelli-logo.webp" alt="Pirelli" loading="lazy"></span>
+          <span class="logo-item"><img src="https://res.cloudinary.com/x3vpljyu/image/upload/v1789313560/Formula_Masters_China_logo.webp" alt="Formula Masters China" loading="lazy"></span>
+          <span class="logo-item"><img src="https://res.cloudinary.com/x3vpljyu/image/upload/v1789307227/new-Red-Bull-logo-white-png-vertical-large-size.webp" alt="Red Bull" loading="lazy"></span>
         </div>
       </div>
     </div>
+
+    <nav class="social-icons" aria-label="Follow DIENASTIE">
+      <a href="https://www.linkedin.com/company/dienastie" target="_blank" rel="noopener" aria-label="DIENASTIE on LinkedIn">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zM7.114 20.452H3.558V9h3.556v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+        </svg>
+      </a>
+      <a href="https://www.instagram.com/dienastie" target="_blank" rel="noopener" aria-label="DIENASTIE on Instagram">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.98-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838a6 6 0 1 0 0 12 6 6 0 0 0 0-12zm0 9.898a3.899 3.899 0 1 1 0-7.797 3.899 3.899 0 0 1 0 7.797zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
+        </svg>
+      </a>
+    </nav>
   </main>
 
   <script>
