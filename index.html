@@ -3,6 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EN6P6XF9ZV"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-EN6P6XF9ZV');
+</script>
+
+<!-- Vercel Web Analytics -->
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+
 <title>DIENASTIE — Don't Wait, Just Go!</title>
 <meta name="description" content="DIENASTIE — Culture / Lifestyle / Community">
 <meta name="theme-color" content="#0E0B0A">
@@ -336,20 +352,6 @@
     fill: currentColor;
   }
 
-  /*
-    Mobile fix: the headline used a fluid vw-based font-size with nowrap
-    lines. On narrow phones the longest line ("for permission.") could
-    render wider than the viewport even with vw scaling, because vw math
-    doesn't account for exact character width, and uppercase transform +
-    tight letter-spacing add extra rendered width on top. overflow:hidden
-    on body/.landing meant the excess was silently clipped at the frame
-    edge instead of wrapping or shrinking further.
-
-    Fix: cap the mobile font-size lower (so the longest line reliably
-    fits within the viewport minus padding), allow wrapping as a safety
-    net if a line is still too long for any reason, and keep real
-    horizontal padding via .content so text never touches the edge.
-  */
   @media (max-width: 620px) {
     .content { padding: 0 20px; }
     .headline { font-size: clamp(1.7rem, 8.6vw, 3.4rem); letter-spacing: -.02em; }
