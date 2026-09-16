@@ -1,0 +1,17 @@
+{
+  "name": "dienastie",
+  "version": "1.0.0",
+  "description": "DIENASTIE — Culture / Lifestyle / Community",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@vercel/analytics": "^1.4.1"
+  },
+  "devDependencies": {
+    "vite": "^5.4.11"
+  }
+}
