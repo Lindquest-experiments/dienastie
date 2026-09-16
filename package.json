@@ -1,0 +1,17 @@
+{
+  "name": "dienastie",
+  "version": "1.0.0",
+  "description": "DIENASTIE — Culture / Lifestyle / Community",
+  "type": "module",
+  "scripts": {
+    "dev": "npx serve .",
+    "build": "echo 'No build process needed for static site'",
+    "preview": "npx serve ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@vercel/analytics": "^2.0.1"
+  }
+}
